@@ -1,11 +1,15 @@
 pipeline {
     agent any
-
+    // Add this block
+    tools {
+        maven 'Maven3' // Match the name you configured
+        jdk 'JDK21'   // If you've set up JDK 21
+    }
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/your-username/your-repo.git', branch: 'main'
-            }
+                git url: 'https://github.com/Pranathii04/demo_err', branch: 'master'
+
         }
 
         stage('Build') {
