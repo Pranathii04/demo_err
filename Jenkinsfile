@@ -1,36 +1,28 @@
 pipeline {
     agent any
-    // Add this block
+
     tools {
-        maven 'Maven3' // Match the name you configured
-        jdk 'JDK21'   // If you've set up JDK 21
+        maven 'Maven3'  // Ensure this matches Jenkins → Tools
+        jdk 'JDK21'     // Ensure JDK 21 is configured
     }
+
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/Pranathii04/demo_err', branch: 'master'
-
+                git url: 'https://github.com/Pranathii04/demo_err.git', branch: 'master'
+            }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean package' // For Java/Maven projects
+                bat 'mvn clean package' // Use "bat" for Windows
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test' // Use "bat" for Windows
             }
         }
-    }
-
-    post {
-        failure {
-            script {
-                echo "Build failed! Sending logs to LLM..."
-                // Add your LLM integration here
-            }
-        }
-    }
-}
+    } // <-- Closing brace for "stages"
+} // <-- Closing brace for "pipeline"
